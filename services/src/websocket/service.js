@@ -9,7 +9,7 @@ const apiGateway = new ApiGatewayManagementApiClient({
 
 const getConnectedClients = async () => {
   try {
-      const command = new ScanCommand({ TableName: 'wssConnections' });
+      const command = new ScanCommand({ TableName: 'wsConnection' });
       const response = await dynamodb.send(command);
       
       if (response.Items.length > 0) {
@@ -44,7 +44,7 @@ const getConnectionId = async (connectionId) => {
 const storeConnectionId = async (connectionId) => {
    try {
       const params = {
-         TableName: 'wssConnections', 
+         TableName: 'wsConnection', 
          Item: {
             connectionId: { S: `${connectionId}` },
          },
@@ -59,7 +59,7 @@ const storeConnectionId = async (connectionId) => {
 const deleteConnectionId = async (connectionId) => {
    try {
       const params = {
-         TableName: 'wssConnections', 
+         TableName: 'wsConnection', 
          Key: {
             connectionId: { S: connectionId },
          },
