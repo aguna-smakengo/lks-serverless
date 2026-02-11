@@ -17,11 +17,14 @@ const initDatabase = async () => {
       console.log("Trying connect to database...");
       const sequelize = new Sequelize(dbname, username, password, {
          host: endpoint,
-         dialect: "postgres", // Database Engine
+         dialect: "postgres",
          dialectOptions: {
-            ssl: true,
+            ssl: {
+               require: true,
+               rejectUnauthorized: false, // <-- INI YANG FIX
+            },
          },
-      });
+      });      
 
       await sequelize.authenticate();
       console.log("Database connection established");
